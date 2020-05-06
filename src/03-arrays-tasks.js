@@ -237,8 +237,10 @@ function toArrayOfSquares(arr) {
  *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
-function getMovingSum(/* arr */) {
-  throw new Error('Not implemented');
+function getMovingSum(arr) {
+  let e = 0;
+  const res = arr.map((it) => { e += it; return e; });
+  return res;
 }
 
 /**
@@ -271,10 +273,13 @@ function getSecondItems(arr) {
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  const res = [];
+  let li = 0;
+  res.length = (arr.length * (arr.length + 1)) / 2;
+  arr.map((it, i) => { res.fill(it, li, li + i + 1); li += i + 1; return false; });
+  return res;
 }
-
 
 /**
  * Returns the 3 largest numbers from the specified array
@@ -325,8 +330,11 @@ function getPositivesCount(arr) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const st = 'one, two, three, four, five, six, seven, eight, nine, ten';
+  const ast = st.split(', ');
+  arr.sort((a, b) => ast.indexOf(a) - ast.indexOf(b));
+  return arr;
 }
 
 /**
@@ -447,10 +455,15 @@ function sortCitiesArray(arr) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  const mt = [];
+  const mtr = [];
+  mtr.length = n;
+  mt.length = n;
+  mt.fill(0, 0, n);
+  mtr.fill(0, 0, n);
+  return mt.map((it, i) => mtr.map((jt, j) => (j === i ? 1 : 0)));
 }
-
 /**
  * Creates an array of integers from the specified start to end (inclusive)
  *
@@ -534,11 +547,11 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  const res = [];
+  arr.map((it) => { childrenSelector(it).map((jt) => res.push(jt)); return false; });
+  return res;
 }
-
-
 /**
  * Returns an element from the multidimentional array by the specified indexes.
  *
@@ -551,10 +564,14 @@ function selectMany(/* arr, childrenSelector */) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  let head = arr;
+  indexes.map((it) => {
+    [head] = head.filter((jt, j) => it === j);
+    return head;
+  });
+  return head;
 }
-
 
 /**
  * Swaps the head and tail of the specified array:
