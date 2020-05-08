@@ -81,8 +81,15 @@ function getPolynom(/* dds */) {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  let res;
+  return () => {
+    if (res) {
+      return res;
+    }
+    res = func();
+    return res;
+  };
 }
 
 
@@ -101,8 +108,21 @@ function memoize(/* func */) {
  * }, 2);
  * retryer() => 2
  */
-function retry(/* func, attempts */) {
-  throw new Error('Not implemented');
+function retry(func, attempts) {
+  let at = attempts;
+  let ret;
+  const res = () => {
+    try {
+      ret = func();
+    } catch (e) {
+      if (at) {
+        at -= 1;
+        res(func, at);
+      }
+    }
+    return ret;
+  };
+  return res;
 }
 
 
