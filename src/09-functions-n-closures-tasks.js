@@ -64,7 +64,7 @@ function getPowerFunction(exponent) {
  */
 function getPolynom(...a) {
   const ar = [...a];
-  return function (val) {
+  return function pol(val) {
     const l = ar.length - 1;
     let res = 0;
     ar.forEach((it, i) => {
